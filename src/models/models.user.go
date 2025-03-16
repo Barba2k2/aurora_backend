@@ -1,16 +1,17 @@
 package models
 
 import (
-	"github.com/lib/pq"
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
+	"github.com/lib/pq"
 )
 
 type UserRole string
 
 const (
 	UserRoleClient       UserRole = "CLIENT"
-	UserRoleProfissional UserRole = "PROFSSIONAL"
+	UserRoleProfessional UserRole = "PROFESSIONAL"
 	UserRoleStaff        UserRole = "STAFF"
 	UserRoleAdmin        UserRole = "ADMIN"
 )
@@ -38,15 +39,15 @@ type User struct {
 	FailedLoginCount  int            `json:"-" gorm:"type:int;dafult:0"`
 	LastLoginAt       *time.Time     `json:"last_login_at,omitempty"`
 
-	CreateAt  time.Time  `json:"created_at" gorm:"not null"`
-	UpdateAt  time.Time  `json:"updated_at" gorm:"not null"`
+	CreatedAt  time.Time  `json:"created_at" gorm:"not null"`
+	UpdatedAt  time.Time  `json:"updated_at" gorm:"not null"`
 	DeletedAt *time.Time `json:"-" gorm:"index"`
 	DeletedBy *uuid.UUID `json:"-" gorm:"type:uuid"`
 
-	Estabilishment *Estabilishment `json:"establishment,omitempty" gorm:"foreignKey:UserID"`
+	Estabilishment *Establishment `json:"establishment,omitempty" gorm:"foreignKey:UserID"`
 }
 
-type Estabilishment struct {
+type Establishment struct {
 	ID             uuid.UUID  `json:"id" gorm:"type:uuid;primary_key;default:gen_random_uuid()"`
 	UserID         uuid.UUID  `json:"-" gorm:"type:uuid;not null"`
 	BussinessName  string     `json:"bussiness_name" gorm:"type:varchar(255);not null"`
@@ -63,8 +64,8 @@ type Estabilishment struct {
 	TimeZone       string     `json:"timezone" gorm:"type:varchar(50);not null;default:'UTC'"`
 	Status         UserStatus `json:"status" gorm:"type:varchar(20);not null;default:'ACTIVE'"`
 
-	CreateAt  time.Time  `json:"created_at" gorm:"not null"`
-	UpdateAt  time.Time  `json:"updated_at" gorm:"not null"`
+	CreatedAt  time.Time  `json:"created_at" gorm:"not null"`
+	UpdatedAt  time.Time  `json:"updated_at" gorm:"not null"`
 	DeletedAt *time.Time `json:"-" gorm:"index"`
 	DeletedBy *uuid.UUID `json:"-" gorm:"type:uuid"`
 }
@@ -73,7 +74,6 @@ func (User) TableName() string {
 	return "users"
 }
 
-func (Estabilishment) TableName() string {
+func (Establishment) TableName() string {
 	return "estabilishments"
 }
-
