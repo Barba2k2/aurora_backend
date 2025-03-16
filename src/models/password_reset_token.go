@@ -22,7 +22,7 @@ const (
 	TokenStatusRevoked TokenStatus = "REVOKED"
 )
 
-type PassowrdResetToken struct {
+type PasswordResetToken struct {
 	ID             uuid.UUID    `json:"id" gorm:"type:uuid;primary_key;default:gen_random_uuid()"`
 	UserID         uuid.UUID    `json:"-" gorm:"type:uuid;index"`
 	User           User         `json:"-" gorm:"foreignKey:UserID"`
@@ -39,27 +39,27 @@ type PassowrdResetToken struct {
 	UpdateAt time.Time `json:"updated_at" gorm:"not null"`
 }
 
-func (PassowrdResetToken) TableName() string {
+func (PasswordResetToken) TableName() string {
 	return "password_reset_tokens"
 }
 
-func (t *PassowrdResetToken) IsValid() bool {
+func (t *PasswordResetToken) IsValid() bool {
 	return t.Status == TokenStatusActive && time.Now().Before(t.ExpiresAt)
 }
 
-func (t *PassowrdResetToken) MarkAsUsed() {
+func (t *PasswordResetToken) MarkAsUsed() {
 	now := time.Now()
 	t.Status = TokenStatusUsed
 	t.UsedAt = &now
 	t.UpdateAt = now
 }
 
-func (t *PassowrdResetToken) MarkAsExpired() {
+func (t *PasswordResetToken) MarkAsExpired() {
 	t.Status = TokenStatusExpired
 	t.UpdateAt = time.Now()
 }
 
-func (t *PassowrdResetToken) IncrementFailedAttempts() {
+func (t *PasswordResetToken) IncrementFailedAttempts() {
 	t.FailedAttempts++
 	t.UpdateAt = time.Now()
 
