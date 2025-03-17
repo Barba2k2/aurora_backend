@@ -35,8 +35,8 @@ type PasswordResetToken struct {
 	IPAddress      string       `json:"-" gorm:"type:varchar(45)"`
 	UserAgent      string       `json:"-" gorm:"type:text"`
 	// Audit fields
-	CreateAt time.Time `json:"created_at" gorm:"not null"`
-	UpdateAt time.Time `json:"updated_at" gorm:"not null"`
+	CreatedAt time.Time `json:"created_at" gorm:"not null"`
+	UpdatedAt time.Time `json:"updated_at" gorm:"not null"`
 }
 
 func (PasswordResetToken) TableName() string {
@@ -51,17 +51,17 @@ func (t *PasswordResetToken) MarkAsUsed() {
 	now := time.Now()
 	t.Status = TokenStatusUsed
 	t.UsedAt = &now
-	t.UpdateAt = now
+	t.UpdatedAt = now
 }
 
 func (t *PasswordResetToken) MarkAsExpired() {
 	t.Status = TokenStatusExpired
-	t.UpdateAt = time.Now()
+	t.UpdatedAt = time.Now()
 }
 
 func (t *PasswordResetToken) IncrementFailedAttempts() {
 	t.FailedAttempts++
-	t.UpdateAt = time.Now()
+	t.UpdatedAt = time.Now()
 
 	if t.FailedAttempts >= 5 {
 		t.Status = TokenStatusRevoked
