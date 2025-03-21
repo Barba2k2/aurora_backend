@@ -13,8 +13,8 @@ Sistema completo para gerenciamento de agendamentos no setor de beleza, permitin
   - [🛠️ Tecnologias](#️-tecnologias)
   - [🏛️ Arquitetura](#️-arquitetura)
   - [✨ Funcionalidades Principais](#-funcionalidades-principais)
-    - [👩‍💼 Para Profissionais:](#-para-profissionais)
-    - [👩‍🦰 Para Clientes:](#-para-clientes)
+    - [👩‍💼 Para Profissionais](#-para-profissionais)
+    - [👩‍🦰 Para Clientes](#-para-clientes)
   - [🚀 Instalação e Configuração](#-instalação-e-configuração)
     - [Pré-requisitos](#pré-requisitos)
     - [Passos para Instalação](#passos-para-instalação)
@@ -33,7 +33,7 @@ A plataforma permite que clientes visualizem disponibilidade em tempo real, agen
 
 ## 🛠️ Tecnologias
 
-- **Backend:** 
+- **Backend:**
   - 🔹 GoLang (API RESTful)
   - 🔹 PostgreSQL (Banco de Dados)
   - 🔹 Docker (Containerização)
@@ -54,27 +54,28 @@ O sistema utiliza uma **Arquitetura Monolítica Modular**:
 - 🚀 Design pensado para facilitar eventual migração para microsserviços
 - 🔐 Estratégia de soft delete para preservação de dados
 
-```
-┌─────────────────────────────────────────────────────┐
-│                  API Gateway Layer                   │
-├───────────────────────┬─────────────────────────────┤
-│   API do Cliente      │     API do Profissional     │
-├───────────────────────┴─────────────────────────────┤
-│                 Controller Layer                     │
-├─────────────────────────────────────────────────────┤
-│                  Service Layer                       │
-├─────────┬──────────┬───────────┬───────────┬────────┤
-│Agendas  │Notificaç.│ Pagamentos│ Fidelidade│  ...   │
-├─────────┴──────────┴───────────┴───────────┴────────┤
-│                Repository Layer                      │
-├─────────────────────────────────────────────────────┤
-│                  PostgreSQL                          │
-└─────────────────────────────────────────────────────┘
+```txt
+┌─────────────────────────────────────────────────────────┐
+│                  API Gateway Layer                      │
+├─────────────────────────┬───────────────────────────────┤
+│   API do Cliente        │     API do Profissional       │
+├─────────────────────────┴───────────────────────────────┤
+│                  Controller Layer                       │
+├─────────────────────────────────────────────────────────┤
+│                   Service Layer                         │
+├─────────┬───────────────┬────────────┬────────────┬─────┤
+│ Agendas │ Notificaçções │ Pagamentos │ Fidelidade │ ... │
+├─────────┴───────────────┴────────────┴────────────┴─────┤
+│                   Repository Layer                      │
+├─────────────────────────────────────────────────────────┤
+│                     PostgreSQL                          │
+└─────────────────────────────────────────────────────────┘
 ```
 
 ## ✨ Funcionalidades Principais
 
-### 👩‍💼 Para Profissionais:
+### 👩‍💼 Para Profissionais
+
 - 📅 Gestão completa de agenda e disponibilidade
 - 👥 Cadastro e histórico de clientes
 - 🧾 Cadastro e gestão de serviços
@@ -83,7 +84,8 @@ O sistema utiliza uma **Arquitetura Monolítica Modular**:
 - 🏆 Programa de fidelidade personalizável
 - 💸 Integração com gateways de pagamento
 
-### 👩‍🦰 Para Clientes:
+### 👩‍🦰 Para Clientes
+
 - 🔍 Busca de profissionais e serviços
 - 📲 Agendamento online com confirmação instantânea
 - 🕒 Visualização de histórico de agendamentos
@@ -94,6 +96,7 @@ O sistema utiliza uma **Arquitetura Monolítica Modular**:
 ## 🚀 Instalação e Configuração
 
 ### Pré-requisitos
+
 - Docker e Docker Compose
 - Go 1.18+
 - PostgreSQL 13+
@@ -101,29 +104,34 @@ O sistema utiliza uma **Arquitetura Monolítica Modular**:
 ### Passos para Instalação
 
 1. Clone o repositório:
+
 ```bash
 git clone https://github.com/barba2k2/aurora_backend.git
 cd aurora_backend
 ```
 
 2. Configure as variáveis de ambiente:
+
 ```bash
 cp .env.example .env
 # Edite o arquivo .env com as configurações necessárias
 ```
 
 3. Inicie os containers com Docker Compose:
+
 ```bash
 docker-compose up -d
 ```
 
 4. Execute as migrações do banco de dados:
+
 ```bash
 make migrate-up
 ```
 
 5. Acesse a API:
-```
+
+```bash
 API Cliente: http://localhost:8080/api/v1/client
 API Profissional: http://localhost:8080/api/v1/professional
 ```
@@ -133,12 +141,14 @@ API Profissional: http://localhost:8080/api/v1/professional
 O sistema possui duas APIs principais com versionamento explícito:
 
 ### 🔹 API do Cliente (`/api/v1/client/...`)
+
 - Autenticação e gestão de perfil
 - Busca de profissionais e serviços
 - Gestão de agendamentos
 - Avaliações e programa de fidelidade
 
 ### 🔹 API do Profissional (`/api/v1/professional/...`)
+
 - Gestão de estabelecimento e serviços
 - Controle de agenda e disponibilidade
 - Gestão de clientes e histórico
@@ -149,7 +159,7 @@ O sistema possui duas APIs principais com versionamento explícito:
 
 O sistema integra dois gateways de pagamento:
 
-- **Stripe (Principal)**: 
+- **Stripe (Principal)**:
   - Checkout embarcado
   - Salvamento seguro de cartões
   - Assinaturas recorrentes
@@ -168,6 +178,7 @@ Sistema multicanal de notificações e lembretes:
 - 🌐 Web Push Notifications (W3C)
 
 Características:
+
 - Templates personalizáveis
 - Lembretes automáticos configuráveis
 - Fallback inteligente entre canais
@@ -179,4 +190,4 @@ Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICEN
 
 ---
 
-Desenvolvido com ❤️ pela Equipe de Desenvolvimento
+Desenvolvido com ❤️ por [Barba Tech](https://barbatech.solutions)
