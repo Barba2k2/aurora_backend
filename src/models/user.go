@@ -39,8 +39,8 @@ type User struct {
 	FailedLoginCount  int            `json:"-" gorm:"type:int;dafult:0"`
 	LastLoginAt       *time.Time     `json:"last_login_at,omitempty"`
 
-	CreatedAt  time.Time  `json:"created_at" gorm:"not null"`
-	UpdatedAt  time.Time  `json:"updated_at" gorm:"not null"`
+	CreatedAt time.Time  `json:"created_at" gorm:"not null"`
+	UpdatedAt time.Time  `json:"updated_at" gorm:"not null"`
 	DeletedAt *time.Time `json:"-" gorm:"index"`
 	DeletedBy *uuid.UUID `json:"-" gorm:"type:uuid"`
 
@@ -61,11 +61,11 @@ type Establishment struct {
 	BussinessEmail string     `json:"bussiness_email,omitempty" gorm:"type:varchar(255)"`
 	LogoURL        string     `json:"logo_url,omitempty" gorm:"type:varchar(255)"`
 	WebsiteURL     string     `json:"website_url,omitempty" gorm:"type:varchar(255)"`
-	TimeZone       string     `json:"timezone" gorm:"type:varchar(50);not null;default:'UTC'"`
+	Timezone       string     `json:"timezone" gorm:"type:varchar(50);not null;default:'UTC'"`
 	Status         UserStatus `json:"status" gorm:"type:varchar(20);not null;default:'ACTIVE'"`
 
-	CreatedAt  time.Time  `json:"created_at" gorm:"not null"`
-	UpdatedAt  time.Time  `json:"updated_at" gorm:"not null"`
+	CreatedAt time.Time  `json:"created_at" gorm:"not null"`
+	UpdatedAt time.Time  `json:"updated_at" gorm:"not null"`
 	DeletedAt *time.Time `json:"-" gorm:"index"`
 	DeletedBy *uuid.UUID `json:"-" gorm:"type:uuid"`
 }
