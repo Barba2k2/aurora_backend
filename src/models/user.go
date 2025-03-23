@@ -30,7 +30,7 @@ type User struct {
 	Email             string         `json:"email" gorm:"type:varchar(255);unique_index;not null"`
 	Phone             string         `json:"phone" gorm:"type:varchar(20);index"`
 	Name              string         `json:"name" gorm:"type:varchar(255);not null"`
-	PassowrdHash      string         `json:"-" gorm:"type:varchar(255);not null"`
+	PasswordHash      string         `json:"-" gorm:"type:varchar(255);not null"`
 	Role              UserRole       `json:"role" gorm:"type:varchar(20);not null"`
 	Status            UserStatus     `json:"status" gorm:"type:varchar(20);not null;default:'ACTIVE'"`
 	Timezone          string         `json:"timezone" gorm:"type:varchar(50);not null;default:'UTC'"`
