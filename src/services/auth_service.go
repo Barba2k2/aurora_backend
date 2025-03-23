@@ -277,7 +277,7 @@ func (s *AuthService) RefreshToken(req RefreshTokenRequest) (*TokenResponse, err
 }
 
 // ForgotPasswordEmail inicia o processo de recuperação de senha via email
-func (s *AuthService) ForgetPasswordEmail(req ForgotPasswordRequest) error {
+func (s *AuthService) ForgotPasswordEmail(req ForgotPasswordRequest) error {
 	// Buscamos o usuario pelo email
 	user, err := s.UserRepo.FindByEmail(req.Email)
 	if err != nil {
