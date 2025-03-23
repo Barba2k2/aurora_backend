@@ -10,7 +10,7 @@ type TokenChannel string
 const (
 	TokenChannelEmail    TokenChannel = "EMAIL"
 	TokenChannelSMS      TokenChannel = "SMS"
-	TokenChannelWhatsapp TokenChannel = "WHATSAPP"
+	TokenChannelWhatsApp TokenChannel = "WHATSAPP"
 )
 
 type TokenStatus string
