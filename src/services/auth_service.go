@@ -124,7 +124,7 @@ type ResetPasswordToken struct {
 
 // ForgotPasswordRequest representa os dados de requisição para solicitação de recuperação de senha
 type ForgotPasswordRequest struct {
-	Email     string `json:"email,omitempty" validate:"omitempty,email"`
+	Email     string `json:"email" validate:"omitempty,email"`
 	Phone     string `json:"phone,omitempty" validate:"omitempty,phone"`
 	ClientIP  string `json:"client_ip" validate:"required"`
 	UserAgent string
@@ -324,7 +324,7 @@ func (s *AuthService) ForgotPasswordEmail(req ForgotPasswordRequest) error {
 	}
 
 	if err := s.TokenRepo.Create(token); err != nil {
-		return nil
+		return err
 	}
 
 	// Enviamos o email com o token
@@ -332,7 +332,7 @@ func (s *AuthService) ForgotPasswordEmail(req ForgotPasswordRequest) error {
 }
 
 // ForgotPasswordSMS inicia o processo de recuperação de senha via SMS
-func (s *AuthService) ForgetPasswordSMS(req ForgotPasswordRequest) error {
+func (s *AuthService) ForgotPasswordSMS(req ForgotPasswordRequest) error {
 	// Buscamos o usario pelo telefone
 	user, err := s.UserRepo.FindByPhone(req.Phone)
 	if err != nil {
